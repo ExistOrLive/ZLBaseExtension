@@ -1,0 +1,29 @@
+{
+  "name": "ZLBaseExtension",
+  "version": "0.1.0",
+  "summary": "A short description of ZLBaseExtension.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/existorlive/ZLBaseExtension",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "zhumeng": "2068531506@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/existorlive/ZLBaseExtension.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "module_name": "ZLBaseExtension",
+  "source_files": "ZLBaseExtension/Classes/**/*.{h,m,swift}",
+  "public_header_files": "ZLGitRemoteService/Classes/**/*.h",
+  "dependencies": {
+    "YYText": [
+
+    ]
+  }
+}

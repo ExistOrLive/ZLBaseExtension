@@ -1,0 +1,6 @@
+framework module ZLBaseExtension {
+  umbrella header "ZLBaseExtension-umbrella.h"
+
+  export *
+  module * { export * }
+}

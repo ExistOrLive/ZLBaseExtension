@@ -1,0 +1,23 @@
+PODS:
+  - YYText (1.0.7)
+  - ZLBaseExtension (0.1.0):
+    - YYText
+
+DEPENDENCIES:
+  - ZLBaseExtension (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - YYText
+
+EXTERNAL SOURCES:
+  ZLBaseExtension:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  ZLBaseExtension: 8d9ed18d33e35cfbfcae70f99515d328960f1b40
+
+PODFILE CHECKSUM: 37ba6c92ff5af69f0529958496c4b73e754f29c4
+
+COCOAPODS: 1.11.2
