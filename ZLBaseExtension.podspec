@@ -32,7 +32,6 @@ TODO: Add long description of the pod here.
 
   s.module_name = 'ZLBaseExtension'
   s.source_files = 'ZLBaseExtension/Classes/**/*.{h,m,swift}'
-  s.public_header_files = 'ZLGitRemoteService/Classes/**/*.h'
   
   # s.resource_bundles = {
   #   'ZLBaseExtension' => ['ZLBaseExtension/Assets/*.png']
