@@ -19,17 +19,18 @@
                      strokeWidth:(CGFloat) stokeWidth
                             size:(CGSize)size
                             path:(UIBezierPath *)path{
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
-    CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(contextRef,stokeWidth);
-    [fillColor setFill];
-    [strokeColor setStroke];
-    [path fill];
-    [path stroke];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    // UIImage的size以逻辑像素为单位， 与图片的实际像素和图片的scale有关
-    return [UIImage imageWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
+    
+    UIGraphicsImageRenderer * render =  [[UIGraphicsImageRenderer alloc] initWithSize:size];
+    
+    UIImage * image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        CGContextSetLineWidth(rendererContext.CGContext,stokeWidth);
+        [fillColor setFill];
+        [strokeColor setStroke];
+        [path fill];
+        [path stroke];
+    }];
+    
+    return image;
 }
 
 
@@ -92,37 +93,39 @@
 - (UIImage * _Nullable) clipImageWithSize:(CGSize) size
                                  drawRect:(CGRect) frame
                                      path:(UIBezierPath * _Nonnull) path{
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
-    [path addClip];
-    [self drawInRect:frame];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return [UIImage imageWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
+    
+    UIGraphicsImageRenderer * render =  [[UIGraphicsImageRenderer alloc] initWithSize:size];
+    
+    UIImage * image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        [path addClip];
+        [self drawInRect:frame];
+    }];
+    
+    return image;
 }
 
 
 
 // 仅截图不修改图片大小
 - (UIImage * _Nullable) clipImageWithPath:(UIBezierPath * _Nonnull) path{
-    CGSize size = self.size;
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
-    [path addClip];
-    [self drawAtPoint:CGPointZero];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return [UIImage imageWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
+    UIGraphicsImageRenderer * render =  [[UIGraphicsImageRenderer alloc] initWithSize:self.size];
+    UIImage * image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        [path addClip];
+        [self drawAtPoint:CGPointZero];
+    }];
+    return image;
 }
 
 
 // 修改图片大小 并 截图
 - (UIImage * _Nullable) clipImageWithSize:(CGSize)size
                                      path:(UIBezierPath * _Nonnull) path{
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
-    [path addClip];
-    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return [UIImage imageWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
+    UIGraphicsImageRenderer * render =  [[UIGraphicsImageRenderer alloc] initWithSize:size];
+    UIImage * image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        [path addClip];
+        [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    }];
+    return image;
 }
 
 
@@ -172,12 +175,11 @@
 #pragma mark - resize图片
 
 - (UIImage *) resizeImageWithSize:(CGSize) size {
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0);
-    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    // UIImage的size以逻辑像素为单位， 与图片的实际像素和图片的scale有关
-    return [UIImage imageWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
+    UIGraphicsImageRenderer * render =  [[UIGraphicsImageRenderer alloc] initWithSize:size];
+    UIImage * image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    }];
+    return image;
 }
 
 #pragma mark - 
