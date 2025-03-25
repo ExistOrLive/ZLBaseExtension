@@ -64,3 +64,40 @@ public extension UITableView {
         return view
     }
 }
+
+
+public extension UITableView {
+    
+    
+    @objc dynamic func zl_reloadAndScrollToTop() {
+        UIView.performWithoutAnimation {
+            self.reloadData()
+        }
+        self.layoutIfNeeded()
+        self.zl_scrollToTop(animated: false)
+    }
+    
+    @objc dynamic func zl_scrollToTop(_ position: ScrollPosition = .top, animated: Bool = true) {
+        let sections = self.numberOfSections
+        // sections 数量为0 时，直接设置contentOffset
+        if sections < 1 {
+            self.setContentOffset(.zero, animated: animated)
+        } else {
+            // sections 数量不为0时，找第一个rows数量不为0的section
+            var firstVisibleSection = -1
+            for s in 0..<sections {
+                let rows = self.numberOfRows(inSection: s)
+                if rows > 0 {
+                    firstVisibleSection = s
+                    break
+                }
+            }
+            // 如果没找到rows数量不为0的section, 直接设置contentOffset，否则使用srollToRow
+            if firstVisibleSection < 0 {
+                self.setContentOffset(.zero, animated: animated)
+            } else {
+                self.scrollToRow(at: IndexPath(row: 0, section: firstVisibleSection), at: position, animated: animated)
+            }
+        }
+    }
+}
