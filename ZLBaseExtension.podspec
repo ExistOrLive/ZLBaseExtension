@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ZLBaseExtension'
-  s.version          = '1.2.0'
+  s.version          = '1.3.0'
   s.summary          = 'A short description of ZLBaseExtension.'
 
 # This description is used to generate tags and improve search results.
@@ -32,6 +32,7 @@ TODO: Add long description of the pod here.
 
   s.module_name = 'ZLBaseExtension'
   s.source_files = 'ZLBaseExtension/Classes/**/*.{h,m,swift}'
+  s.resource_bundle = {"ZLBaseExtension.privacy"=>"Pod/Privacy/ZLBaseExtension/PrivacyInfo.xcprivacy"}
   
   # s.resource_bundles = {
   #   'ZLBaseExtension' => ['ZLBaseExtension/Assets/*.png']
